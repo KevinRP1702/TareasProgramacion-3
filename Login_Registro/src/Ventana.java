@@ -1,8 +1,13 @@
 import java.awt.EventQueue;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONException;
+
+import java.io.FileReader;
+import java.io.IOException;
+
 import javax.swing.JFrame;
-import javax.swing.JToolBar;
-import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -147,6 +152,51 @@ public class Ventana {
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnNewButton.setBounds(139, 491, 193, 23);
 		panel_1.add(btnNewButton);
+		
+		
+	
+		JButton btnMostrar = new JButton("Mostrar info JSON");
+		btnMostrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+				    String filePath = "C:\\Users\\krip1\\Downloads\\users.json";
+				    FileReader reader = new FileReader(filePath); 
+
+				    StringBuilder jsonString = new StringBuilder(); 
+				    int p;
+
+				    while ((p = reader.read()) != -1) {
+				        jsonString.append((char) p);
+				    }
+
+				    reader.close();
+
+				    JSONObject jsonObj = new JSONObject(jsonString.toString()); 
+				    JSONArray usersArray = jsonObj.getJSONArray("users");
+				    
+				    System.out.println("Datos dentro del JSON: ");
+				    for (int i = 0; i < usersArray.length(); i++) 
+				    {
+				        JSONObject userObj = usersArray.getJSONObject(i);
+				        String user = userObj.getString("maidenName");
+				        String psw = userObj.getString("password");
+
+				        System.out.println("Usuario: " + user);
+				        System.out.println("Contraseña: " + psw);
+				        System.out.println();
+				    }
+				} catch (IOException e1) {
+				    e1.printStackTrace();
+				    JOptionPane.showMessageDialog(null, "No se pudo leer el archivo", "Alerta", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		
+		
+		btnMostrar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnMostrar.setBounds(139, 542, 191, 23);
+		panel_1.add(btnMostrar);
 	}
 	
 	private void registro(JFrame frame) {
