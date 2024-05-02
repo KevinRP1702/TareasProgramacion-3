@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 public class Ventana {
 
 	private JFrame frame;
+	boolean sesion = false;
 	private JTextField txtNombre;
 	private JTextField txtApellido;
 	private JTextField txtCorreo;
@@ -78,136 +79,133 @@ public class Ventana {
 	}
 	
 	private void login(JFrame frame) {
-		frame.repaint();
-		frame.revalidate();
-		
-		panel_1.setBackground(new Color(105, 105, 105));
-		panel_1.setBounds(0, 29, 488, 700);
-		frame.getContentPane().add(panel_1);
-		panel_1.setLayout(null);
-		
-		JLabel lblTitulo = new JLabel("Iniciar sesión");
-		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 25));
-		lblTitulo.setForeground(new Color(255, 255, 255));
-		lblTitulo.setBounds(163, 120, 180, 38);
-		panel_1.add(lblTitulo);
-		
-		JLabel lblNombreUsu = new JLabel("Ingrese el nombre de usuario");
-		lblNombreUsu.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNombreUsu.setOpaque(true);
-		lblNombreUsu.setBackground(new Color(0, 0, 0));
-		lblNombreUsu.setForeground(new Color(255, 255, 255));
-		lblNombreUsu.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNombreUsu.setBounds(104, 192, 282, 28);
-		panel_1.add(lblNombreUsu);
-		
-		txtNombreUsu = new JTextField();
-		txtNombreUsu.setBounds(104, 218, 282, 46);
-		panel_1.add(txtNombreUsu);
-		txtNombreUsu.setColumns(10);
-		
-		JLabel lblContra2 = new JLabel("Ingrese su contraseña");
-		lblContra2.setOpaque(true);
-		lblContra2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblContra2.setForeground(Color.WHITE);
-		lblContra2.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblContra2.setBackground(Color.BLACK);
-		lblContra2.setBounds(104, 291, 282, 28);
-		panel_1.add(lblContra2);
-		
-		txtContra2 = new JTextField();
-		txtContra2.setColumns(10);
-		txtContra2.setBounds(104, 317, 282, 46);
-		panel_1.add(txtContra2);
-		
-		JButton btnLogin = new JButton("Login");
-		btnLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "No se puede acceder", "Error",JOptionPane.ERROR_MESSAGE);
-			}
-		});
-		btnLogin.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnLogin.setBounds(139, 408, 191, 38);
-		panel_1.add(btnLogin);
-		
-		JButton bntSinCuenta = new JButton("¿No tiene cuenta?");
-		bntSinCuenta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.remove(panel_1);
-				registro(frame);
-			}
-		});
-		bntSinCuenta.setFont(new Font("Tahoma", Font.BOLD, 13));
-		bntSinCuenta.setBounds(139, 457, 192, 23);
-		panel_1.add(bntSinCuenta);
-		
-		JButton btnNewButton = new JButton("¿Olvidó su contraseña?");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.remove(panel);
-				frame.remove(panel_1);
-				recuperar(frame);
-			}
-		});
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnNewButton.setBounds(139, 491, 193, 23);
-		panel_1.add(btnNewButton);
-		
-		
-	
-		JButton btnMostrar = new JButton("Mostrar info JSON");
-		btnMostrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				try {
-				    String filePath = "C:\\Users\\krip1\\Downloads\\users.json";
-				    FileReader reader = new FileReader(filePath); 
+		 frame.repaint();
+		    frame.revalidate();
 
-				    StringBuilder jsonString = new StringBuilder(); 
-				    int p;
+		    panel_1.setBackground(new Color(105, 105, 105));
+		    panel_1.setBounds(0, 29, 488, 700);
+		    frame.getContentPane().add(panel_1);
+		    panel_1.setLayout(null);
 
-				    while ((p = reader.read()) != -1) {
-				        jsonString.append((char) p);
-				    }
+		    JLabel lblTitulo = new JLabel("Iniciar sesión");
+		    lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 25));
+		    lblTitulo.setForeground(new Color(255, 255, 255));
+		    lblTitulo.setBounds(163, 120, 180, 38);
+		    panel_1.add(lblTitulo);
 
-				    reader.close();
+		    JLabel lblNombreUsu = new JLabel("Ingrese el nombre de usuario");
+		    lblNombreUsu.setFont(new Font("Tahoma", Font.BOLD, 13));
+		    lblNombreUsu.setOpaque(true);
+		    lblNombreUsu.setBackground(new Color(0, 0, 0));
+		    lblNombreUsu.setForeground(new Color(255, 255, 255));
+		    lblNombreUsu.setHorizontalAlignment(SwingConstants.CENTER);
+		    lblNombreUsu.setBounds(104, 192, 282, 28);
+		    panel_1.add(lblNombreUsu);
 
-				    JSONObject jsonObj = new JSONObject(jsonString.toString()); 
-				    JSONArray usersArray = jsonObj.getJSONArray("users");
-				    
-				    System.out.println("Datos dentro del JSON: ");
-				    for (int i = 0; i < usersArray.length(); i++) 
-				    {
-				        JSONObject userObj = usersArray.getJSONObject(i);
-				        String user = userObj.getString("maidenName");
-				        String psw = userObj.getString("password");
+		    txtNombreUsu = new JTextField();
+		    txtNombreUsu.setBounds(104, 218, 282, 46);
+		    panel_1.add(txtNombreUsu);
+		    txtNombreUsu.setColumns(10);
 
-				        System.out.println("Usuario: " + user);
-				        System.out.println("Contraseña: " + psw);
-				        System.out.println();
-				    }
-				} catch (IOException e1) {
-				    e1.printStackTrace();
-				    JOptionPane.showMessageDialog(null, "No se pudo leer el archivo", "Alerta", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		
-		
-		btnMostrar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnMostrar.setBounds(139, 542, 191, 23);
-		panel_1.add(btnMostrar);
+		    JLabel lblContra2 = new JLabel("Ingrese su contraseña");
+		    lblContra2.setOpaque(true);
+		    lblContra2.setHorizontalAlignment(SwingConstants.CENTER);
+		    lblContra2.setForeground(Color.WHITE);
+		    lblContra2.setFont(new Font("Tahoma", Font.BOLD, 13));
+		    lblContra2.setBackground(Color.BLACK);
+		    lblContra2.setBounds(104, 291, 282, 28);
+		    panel_1.add(lblContra2);
+
+		    txtContra2 = new JTextField();
+		    txtContra2.setColumns(10);
+		    txtContra2.setBounds(104, 317, 282, 46);
+		    panel_1.add(txtContra2);
+
+		    JButton btnLogin = new JButton("Login");
+		    btnLogin.addActionListener(new ActionListener() {
+		        public void actionPerformed(ActionEvent e) {
+		            try {
+		                String filePath = "C:\\Users\\krip1\\Downloads\\users.json";
+		                FileReader reader = new FileReader(filePath);
+
+		                StringBuilder jsonString = new StringBuilder();
+		                int p;
+
+		                while ((p = reader.read()) != -1) {
+		                    jsonString.append((char) p);
+		                }
+
+		                reader.close();
+
+		                JSONObject jsonObj = new JSONObject(jsonString.toString());
+		                JSONArray usersArray = jsonObj.getJSONArray("users");
+
+		                for (int i = 0; i < usersArray.length(); i++) {
+		                    JSONObject userObj = usersArray.getJSONObject(i);
+		                    String user = userObj.getString("username");
+		                    String psw = userObj.getString("password");
+
+		                    if (txtNombreUsu.getText().equals(user) && txtContra2.getText().equals(psw)) {
+		                        sesion = true;
+		                        break;
+		                    }
+		                }
+
+		                if (sesion) {
+		                    frame.remove(panel_1);
+		                    txtContra2.setText("");
+		                    txtNombreUsu.setText("");
+		                    registro(frame);
+		                } else {
+		                    JOptionPane.showMessageDialog(null, "Nombre de usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+		                }
+		            } catch (IOException | JSONException e1) {
+		                e1.printStackTrace();
+		                JOptionPane.showMessageDialog(null, "No se pudo leer el archivo", "Alerta", JOptionPane.ERROR_MESSAGE);
+		            }
+		        }
+		    });
+		    btnLogin.setFont(new Font("Tahoma", Font.BOLD, 13));
+		    btnLogin.setBounds(139, 408, 191, 38);
+		    panel_1.add(btnLogin);
+
+		    JButton bntSinCuenta = new JButton("¿No tiene cuenta?");
+		    bntSinCuenta.addActionListener(new ActionListener() {
+		        public void actionPerformed(ActionEvent e) {
+		            frame.remove(panel_1);
+		            registro(frame);
+		        }
+		    });
+		    bntSinCuenta.setFont(new Font("Tahoma", Font.BOLD, 13));
+		    bntSinCuenta.setBounds(139, 457, 192, 23);
+		    panel_1.add(bntSinCuenta);
+
+		    JButton btnNewButton = new JButton("¿Olvidó su contraseña?");
+		    btnNewButton.addActionListener(new ActionListener() {
+		        public void actionPerformed(ActionEvent e) {
+		            frame.remove(panel_1);
+		            recuperar(frame);
+		        }
+		    });
+		    btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
+		    btnNewButton.setBounds(139, 491, 193, 23);
+		    panel_1.add(btnNewButton);
+
+		    JButton btnMostrar = new JButton("Mostrar info JSON");
+		    btnMostrar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		    btnMostrar.setBounds(139, 542, 191, 23);
+		    panel_1.add(btnMostrar);
 	}
 	
 	private void registro(JFrame frame) {
 		frame.repaint();
 		frame.revalidate();
-		
-		panel.setBackground(new Color(75, 0, 130));
-		panel.setBounds(0, 29, 488, 700);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
-		
+		    
+		 panel.setBackground(new Color(75, 0, 130));
+		 panel.setBounds(0, 29, 488, 700);
+		 frame.getContentPane().add(panel);
+		 panel.setLayout(null);
+		    
 		JLabel lblTitulo = new JLabel("Registrarse");
 		lblTitulo.setForeground(new Color(222, 184, 135));
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 28));
@@ -307,19 +305,19 @@ public class Ventana {
 	}
 	
 	private void recuperar(JFrame frame) {
-		frame.repaint();
-		frame.revalidate();
-		
-		panel_2.setBackground(new Color(255, 128, 128));
-		panel_2.setBounds(0, 28, 488, 701);
-		frame.getContentPane().add(panel_2);
-		panel_2.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("Recuperar contraseña");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 23));
-		lblNewLabel.setBounds(106, 96, 273, 35);
-		panel_2.add(lblNewLabel);
+		 frame.repaint();
+		    frame.revalidate();
+
+		    panel_2.setBackground(new Color(255, 128, 128));
+		    panel_2.setBounds(0, 28, 488, 701);
+		    frame.getContentPane().add(panel_2);
+		    panel_2.setLayout(null);
+
+		    JLabel lblNewLabel = new JLabel("Recuperar contraseña");
+		    lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		    lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 23));
+		    lblNewLabel.setBounds(106, 96, 273, 35);
+		    panel_2.add(lblNewLabel);
 		
 		txtCorreRecu = new JTextField();
 		txtCorreRecu.setBounds(90, 227, 308, 40);
@@ -346,17 +344,17 @@ public class Ventana {
 		btnRecuperar.setBounds(163, 424, 162, 46);
 		panel_2.add(btnRecuperar);
 		
-		JButton btnRegreso = new JButton("Regresar");
-		btnRegreso.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.remove(panel);
-				frame.remove(panel_2);
-				login(frame);
-			}
-		});
-		btnRegreso.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnRegreso.setBounds(178, 487, 128, 23);
-		panel_2.add(btnRegreso);
+		 JButton btnRegreso = new JButton("Regresar");
+		    btnRegreso.addActionListener(new ActionListener() {
+		        public void actionPerformed(ActionEvent e) {
+		            frame.remove(panel);
+		            frame.remove(panel_2);
+		            login(frame); // Vuelve a cargar la ventana de inicio de sesión
+		        }
+		    });
+		    btnRegreso.setFont(new Font("Tahoma", Font.BOLD, 13));
+		    btnRegreso.setBounds(178, 487, 128, 23);
+		    panel_2.add(btnRegreso);
 	}
 	
 	public void JMenu() {
@@ -370,6 +368,7 @@ public class Ventana {
 		JMenuItem JmnuLogin = new JMenuItem("Login");
 		JmnuLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				frame.remove(panel);
 				frame.remove(panel_2);
 				login(frame);
